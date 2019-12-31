@@ -29,6 +29,10 @@ function setup() {
     controlRegistry.registerKeybind('b', () => {
         tiles.setTile(mouseX, mouseY, tileTypes.Battery());
     }, true);
+    
+    controlRegistry.registerKeybind('t', () => {
+        tiles.setTile(mouseX, mouseY, tileTypes.Test());
+    }, true);
 
     controlRegistry.registerKeybind('Shift', () => {
         tiles.setTile(mouseX, mouseY, tileTypes.Empty());

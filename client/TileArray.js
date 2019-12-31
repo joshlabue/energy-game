@@ -22,16 +22,9 @@ class TileArray {
         translate(translateX, translateY);
         for(let row = 0; row < this.height; row++) {
             for(let col = 0; col < this.width; col++) {
-                // debugger;
-                if(this.tiles[row][col].type == 'generator') {
-                    fill(161, 195, 73);
-                }
-                else if(this.tiles[row][col].type == 'battery') {
-                    fill(69, 74, 222);
-                }
-                else {
-                    fill(0,0,0, 0);
-                }
+                
+                let tileColor = this.tiles[row][col].color;
+                fill(tileColor.r, tileColor.g, tileColor.b);
                 rect(col*this.tileSize, row*this.tileSize, this.tileSize, this.tileSize);
             }
         }

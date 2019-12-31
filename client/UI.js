@@ -9,21 +9,35 @@ class UI {
             let targetTile = tiles.tiles[targetTileCoords.x][targetTileCoords.y];
             if(targetTile.type != 'empty') {
                 stroke(51, 49, 56);
-                strokeWeight(3);
-                fill(0);
-                rect(mouseX+25, mouseY, 170, 50, 2);
+               
+                let tooltipHeader = capFirstLetter(targetTile.type);
                 
+                let tooltipText = '';
+                if(targetTile.tooltip() != '') tooltipText += `\n${targetTile.tooltip()}`;
+
+                let numLines = tooltipText.split('\n').length;
+
+                let lines = tooltipText.split('\n');
+                
+                textStyle(BOLD);
+                let longestLine = textWidth(tooltipHeader);
+                textStyle(NORMAL);
+                textSize(16);
+                for(let i = 0; i < lines.length; i++) {
+                    let lineLength = textWidth(lines[i]);
+                    if(lineLength > longestLine) longestLine = lineLength;
+                }
+
+                strokeWeight(3);
+                fill(0); 
+                rect(mouseX+25, mouseY, longestLine * 1.05, (textAscent()*numLines * 1.35) + 5, 2);
+
                 noStroke();
                 fill(255);
-                textSize(16);
-                text(capFirstLetter(targetTile.type),mouseX+30, mouseY+18);
-                
-                if(targetTile.type == 'generator') {
-                    text(`Produces ${targetTile.productionRate} unit/sec`,mouseX+30, mouseY+35);
-                }
-                else if(targetTile.type == 'battery') {
-                    text(`Stores up to ${targetTile.storage} units`,mouseX+30, mouseY+35);
-                }
+                textStyle(BOLD);
+                text(tooltipHeader, mouseX+30, mouseY+18)
+                textStyle(NORMAL);
+                text(tooltipText, mouseX+30, mouseY+18);
             }
         }
 
